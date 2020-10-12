@@ -5,29 +5,29 @@ use GuzzleHttp\Client;
 
 class AfricasTalking
 {
-	const BASE_DOMAIN         = "africastalking.com";
-	const BASE_SANDBOX_DOMAIN = "sandbox." . self::BASE_DOMAIN;
-	
-	protected $username;
-	protected $apiKey;
+    const BASE_DOMAIN         = "africastalking.com";
+    const BASE_SANDBOX_DOMAIN = "sandbox." . self::BASE_DOMAIN;
 
-	protected $client;
-	protected $contentClient;
-	protected $voiceClient;
-	protected $paymentsClient;
-	protected $tokenClient;
+    protected $username;
+    protected $apiKey;
 
-	public $baseUrl;
-	protected $contentUrl;
-	protected $voiceUrl;
-	protected $paymentsUrl;
-	private $checkoutTokenUrl;
+    protected $client;
+    protected $contentClient;
+    protected $voiceClient;
+    protected $paymentsClient;
+    protected $tokenClient;
+
+    public $baseUrl;
+    protected $contentUrl;
+    protected $voiceUrl;
+    protected $paymentsUrl;
+    private $checkoutTokenUrl;
 
     public function __construct($username, $apiKey)
-	{
-		$baseDomain = ($username === 'sandbox') ? self::BASE_SANDBOX_DOMAIN : self::BASE_DOMAIN;
-		
-	    $this->baseUrl = "https://api." . $baseDomain . "/version1/";
+    {
+        $baseDomain = ($username === 'sandbox') ? self::BASE_SANDBOX_DOMAIN : self::BASE_DOMAIN;
+
+        $this->baseUrl = "https://api." . $baseDomain . "/version1/";
         $this->voiceUrl = "https://voice." . $baseDomain . "/";
         $this->paymentsUrl = "https://payments." . $baseDomain . "/";
         $this->contentUrl = ($username === "sandbox") ? ($this->baseUrl) : ("https://content." . $baseDomain . "/version1/");
@@ -45,83 +45,76 @@ class AfricasTalking
             ]
         ]);
 
-		$this->contentClient = new Client([
-			'base_uri' => $this->contentUrl,
-			'headers' => [
-				'apikey' => $this->apiKey,
-				'Content-Type' => 'application/x-www-form-urlencoded',
-				'Accept' => 'application/json'
-			]
-		]);
+        $this->contentClient = new Client([
+            'base_uri' => $this->contentUrl,
+            'headers' => [
+                'apikey' => $this->apiKey,
+                'Content-Type' => 'application/x-www-form-urlencoded',
+                'Accept' => 'application/json'
+            ]
+        ]);
 
-		$this->voiceClient = new Client([
-			'base_uri' => $this->voiceUrl,
-			'headers' => [
-				'apikey' => $this->apiKey,
-				'Content-Type' => 'application/x-www-form-urlencoded',
-				'Accept' => 'application/json'
-			]
-		]);
+        $this->voiceClient = new Client([
+            'base_uri' => $this->voiceUrl,
+            'headers' => [
+                'apikey' => $this->apiKey,
+                'Content-Type' => 'application/x-www-form-urlencoded',
+                'Accept' => 'application/json'
+            ]
+        ]);
 
-		$this->paymentsClient = new Client([
-			'base_uri' => $this->paymentsUrl,
-			'headers' => [
-				'apikey' => $this->apiKey,
-				'Content-Type' => 'application/json',
-				'Accept' => 'application/json'
-			]
-		]);
+        $this->paymentsClient = new Client([
+            'base_uri' => $this->paymentsUrl,
+            'headers' => [
+                'apikey' => $this->apiKey,
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json'
+            ]
+        ]);
 
-		$this->tokenClient = new Client([
-			'base_uri' => $this->checkoutTokenUrl,
-			'headers' => [
-				'apikey' => $this->apiKey,
-				'Content-Type' => 'application/json',
-				'Accept' => 'application/json'
-			]
-		]);
-	}
+        $this->tokenClient = new Client([
+            'base_uri' => $this->checkoutTokenUrl,
+            'headers' => [
+                'apikey' => $this->apiKey,
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json'
+            ]
+        ]);
+    }
 
-	public function sms()
-	{
-		$content = new Content($this->contentClient, $this->username, $this->apiKey);
-		$sms = new SMS($this->client, $this->username, $this->apiKey, $content);
-		return $sms;
-	}
+    public function sms()
+    {
+        $content = new Content($this->contentClient, $this->username, $this->apiKey);
+        return new SMS($this->client, $this->username, $this->apiKey, $content);
+    }
 
-	public function content()
-	{
-		$content = new Content($this->contentClient, $this->username, $this->apiKey);
-		return $content;
-	}
+    public function content()
+    {
+        return new Content($this->contentClient, $this->username, $this->apiKey);
+    }
 
-	public function airtime()
-	{
-		$airtime = new Airtime($this->client, $this->username, $this->apiKey);		
-		return $airtime;
-	}
+    public function airtime()
+    {
+        return new Airtime($this->client, $this->username, $this->apiKey);
+    }
 
-	public function voice()
-	{
-		$voice = new Voice($this->voiceClient, $this->username, $this->apiKey);
-		return $voice;
-	}
+    public function voice()
+    {
+        return new Voice($this->voiceClient, $this->username, $this->apiKey);
+    }
 
-	public function application()
-	{
-		$application = new Application($this->client, $this->username, $this->apiKey);		
-		return $application;
-	}
+    public function application()
+    {
+        return new Application($this->client, $this->username, $this->apiKey);
+    }
 
-	public function payments()
-	{
-		$payments = new Payments($this->paymentsClient, $this->username, $this->apiKey);		
-		return $payments;
-	}
+    public function payments()
+    {
+        return new Payments($this->paymentsClient, $this->username, $this->apiKey);
+    }
 
-	public function token()
-	{
-		$token = new Token($this->tokenClient, $this->username, $this->apiKey);
-		return $token;
-	}
+    public function token()
+    {
+        return new Token($this->tokenClient, $this->username, $this->apiKey);
+    }
 }
