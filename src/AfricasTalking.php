@@ -25,33 +25,25 @@ class AfricasTalking
 
     public function __construct($username, $apiKey)
 	{
-		if($username === 'sandbox') {
-			$this->baseDomain = self::BASE_SANDBOX_DOMAIN;
-		} else {
-			$this->baseDomain = self::BASE_DOMAIN;
-		}
+		$baseDomain = ($username === 'sandbox') ? self::BASE_SANDBOX_DOMAIN : self::BASE_DOMAIN;
+		
+	    $this->baseUrl = "https://api." . $baseDomain . "/version1/";
+        $this->voiceUrl = "https://voice." . $baseDomain . "/";
+        $this->paymentsUrl = "https://payments." . $baseDomain . "/";
+        $this->contentUrl = ($username === "sandbox") ? ($this->baseUrl) : ("https://content." . $baseDomain . "/version1/");
+        $this->checkoutTokenUrl = "https://api." . $baseDomain . "/";
 
-		$this->baseUrl = "https://api." . $this->baseDomain . "/version1/";
-		$this->voiceUrl = "https://voice." . $this->baseDomain . "/";
-		$this->paymentsUrl = "https://payments." . $this->baseDomain . "/";
-		$this->contentUrl = ($username === "sandbox") ? ($this->baseUrl) : ("https://content." . $this->baseDomain . "/version1/");
-		$this->checkoutTokenUrl = "https://api." . $this->baseDomain . "/";
+        $this->username = $username;
+        $this->apiKey = $apiKey;
 
-		if ($username === 'sandbox') {
-			$this->contentUrl = $this->baseUrl;
-		}
-
-		$this->username = $username;
-		$this->apiKey = $apiKey;
-
-		$this->client = new Client([
-			'base_uri' => $this->baseUrl,
-			'headers' => [
-				'apikey' => $this->apiKey,
-				'Content-Type' => 'application/x-www-form-urlencoded',
-				'Accept' => 'application/json'
-			]
-		]);
+        $this->client = new Client([
+            'base_uri' => $this->baseUrl,
+            'headers' => [
+                'apikey' => $this->apiKey,
+                'Content-Type' => 'application/x-www-form-urlencoded',
+                'Accept' => 'application/json'
+            ]
+        ]);
 
 		$this->contentClient = new Client([
 			'base_uri' => $this->contentUrl,
