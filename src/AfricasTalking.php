@@ -14,15 +14,16 @@ class AfricasTalking
 	protected $client;
 	protected $contentClient;
 	protected $voiceClient;
-	protected $paymentClient;
+	protected $paymentsClient;
 	protected $tokenClient;
 
 	public $baseUrl;
 	protected $contentUrl;
 	protected $voiceUrl;
-	protected $paymentUrl;
+	protected $paymentsUrl;
+	private $checkoutTokenUrl;
 
-	public function __construct($username, $apiKey)
+    public function __construct($username, $apiKey)
 	{
 		if($username === 'sandbox') {
 			$this->baseDomain = self::BASE_SANDBOX_DOMAIN;
