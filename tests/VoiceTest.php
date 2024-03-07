@@ -4,7 +4,6 @@ namespace AfricasTalking\SDK\Tests;
 use AfricasTalking\SDK\AfricasTalking;
 use GuzzleHttp\Exception\GuzzleException;
 
-#[\AllowDynamicProperties]
 class VoiceTest extends \PHPUnit\Framework\TestCase
 {
 	public function setUp(): void

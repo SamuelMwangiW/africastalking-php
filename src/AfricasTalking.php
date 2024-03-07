@@ -12,16 +12,13 @@ class AfricasTalking
 	protected $apiKey;
 
 	protected $client;
-	protected $contentClient;
 	protected $voiceClient;
 	protected $tokenClient;
+	protected $contentClient;
 	protected $mobileDataClient;
-
-	protected $baseDomain;
 
 	public $baseUrl;
 	protected $voiceUrl;
-    protected $checkoutTokenUrl;
 	protected $contentUrl;
 	protected $mobileDataUrl;
 
