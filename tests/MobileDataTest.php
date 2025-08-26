@@ -4,6 +4,7 @@ namespace AfricasTalking\SDK\Tests;
 
 use AfricasTalking\SDK\AfricasTalking;
 
+#[\AllowDynamicProperties]
 class MobileDataTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp(): void
