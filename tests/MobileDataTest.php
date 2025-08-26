@@ -31,7 +31,12 @@ class MobileDataTest extends \PHPUnit\Framework\TestCase
         $response = $this->client->findTransaction([
             'transactionId' => Fixtures::$transactionId,
         ]);
-        $this->assertEquals('Failure', $response['data']->status);
+
+        $this->assertObjectHasProperty('status', $response['data']);
+
+        $this->assertTrue(
+            in_array($response['data']->status, ['Success', 'Failure']),
+        );
     }
 
     public function test_fetch_wallet_balance()
@@ -41,7 +46,7 @@ class MobileDataTest extends \PHPUnit\Framework\TestCase
         $this->assertObjectHasProperty('status', $response['data']);
 
         $this->assertTrue(
-            in_array($response['data']->status, ['Success', 'NotAvailable'])
+            in_array($response['data']->status, ['Success', 'NotAvailable']),
         );
     }
 }

@@ -120,31 +120,23 @@ class AfricasTalking
         return new Airtime($this->client, $this->username, $this->apiKey);
     }
 
-    public function voice()
+    public function voice(): Voice
     {
-        $voice = new Voice($this->voiceClient, $this->username, $this->apiKey);
-
-        return $voice;
+        return new Voice($this->voiceClient, $this->username, $this->apiKey);
     }
 
-    public function application()
+    public function application(): Application
     {
-        $application = new Application($this->client, $this->username, $this->apiKey);
-
-        return $application;
+        return new Application($this->client, $this->username, $this->apiKey);
     }
 
-    public function mobileData()
+    public function mobileData(): MobileData
     {
-        $mobileData = new MobileData($this->mobileDataClient, $this->username, $this->apiKey);
-
-        return $mobileData;
+        return new MobileData($this->mobileDataClient, $this->username, $this->apiKey);
     }
 
-    public function token()
+    public function token(): Token
     {
-        $token = new Token($this->tokenClient, $this->username, $this->apiKey);
-
-        return $token;
+        return new Token($this->tokenClient, $this->username, $this->apiKey);
     }
 }

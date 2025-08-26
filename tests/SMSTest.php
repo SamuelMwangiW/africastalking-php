@@ -108,8 +108,6 @@ class SMSTest extends \PHPUnit\Framework\TestCase
             'keyword' => Fixtures::$keyword,
         ]);
 
-        var_dump($response);
-
         $this->assertArrayHasKey('status', $response);
         $this->assertArrayHasKey('data', $response);
         $this->assertEquals('success', $response['status']);

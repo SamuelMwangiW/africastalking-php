@@ -44,7 +44,7 @@ class Voice extends Service
         return $this;
     }
 
-    private function apiCall(string $method, array $args)
+    private function apiCall(string $method, string $args)
     {
         return $this->$method($args);
     }
@@ -128,7 +128,7 @@ class Voice extends Service
         return $this->success($response);
     }
 
-    protected function dofetchQueuedCalls(array $options): array
+    protected function dofetchQueuedCalls(string $options): array
     {
         // Check and validate phoneNumber
         if (! isset($options['phoneNumber'])) {
