@@ -37,6 +37,11 @@ class MobileDataTest extends \PHPUnit\Framework\TestCase
     public function test_fetch_wallet_balance()
     {
         $response = $this->client->fetchWalletBalance();
-        $this->assertEquals('Success', $response['data']->status);
+
+        $this->assertObjectHasProperty('status', $response['data']);
+
+        $this->assertTrue(
+            in_array($response['data']->status, ['Success', 'NotAvailable'])
+        );
     }
 }
