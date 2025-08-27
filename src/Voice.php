@@ -8,18 +8,14 @@ class Voice extends Service
 
     public function __call(string $method, array $args)
     {
+        if (! isset($args[0])) {
+            $args = [0 => ''];
+        }
+
         // First check if method exists
         if (method_exists($this, 'build' . $method)) {
-            if (! isset($args[0])) {
-                $args = [0 => ''];
-            }
-
             return $this->stringBuilder('build' . $method, $args[0]);
         } elseif (method_exists($this, 'do' . $method)) {
-            if (! isset($args[0])) {
-                $args = [0 => ''];
-            }
-
             return $this->apiCall('do' . $method, $args[0]);
         } else {
             return $this->error($method . ' is an invalid Voice SDK Method');
@@ -44,7 +40,7 @@ class Voice extends Service
         return $this;
     }
 
-    private function apiCall(string $method, string $args)
+    private function apiCall(string $method, string|array $args)
     {
         return $this->$method($args);
     }
@@ -94,7 +90,7 @@ class Voice extends Service
         return $this->success($response);
     }
 
-    protected function doUploadMediaFile(array $options): array
+    protected function doUploadMediaFile(string|array $options): array
     {
         // Check and validate phoneNumber
         if (! isset($options['phoneNumber'])) {
@@ -128,7 +124,7 @@ class Voice extends Service
         return $this->success($response);
     }
 
-    protected function dofetchQueuedCalls(string $options): array
+    protected function dofetchQueuedCalls(array $options): array
     {
         // Check and validate phoneNumber
         if (! isset($options['phoneNumber'])) {

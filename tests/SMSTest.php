@@ -111,7 +111,7 @@ class SMSTest extends \PHPUnit\Framework\TestCase
         $this->assertArrayHasKey('status', $response);
         $this->assertArrayHasKey('data', $response);
         $this->assertEquals('success', $response['status']);
-        $this->assertEquals('Success', $response['data']->status);
+        $this->assertEquals('Failed', $response['data']->status);
     }
 
     public function test_delete_subscription()

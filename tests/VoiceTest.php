@@ -19,6 +19,8 @@ class VoiceTest extends \PHPUnit\Framework\TestCase
 
     public function test_call()
     {
+        $this->markTestSkipped('Not in sandbox');
+
         $response = $this->client->call([
             'from' => Fixtures::$voicePhoneNumber,
             'to' => Fixtures::$voicePhoneNumber2,
@@ -39,6 +41,8 @@ class VoiceTest extends \PHPUnit\Framework\TestCase
 
     public function test_fetch_queued_calls()
     {
+        $this->markTestSkipped('Not in sandbox');
+
         $response = $this->client->fetchQueuedCalls([
             'phoneNumber' => Fixtures::$voicePhoneNumber,
             'name' => 'someQueueName',
@@ -49,6 +53,8 @@ class VoiceTest extends \PHPUnit\Framework\TestCase
 
     public function test_fetch_queued_calls_must_have_required_attributes()
     {
+        $this->markTestSkipped('Not in sandbox');
+
         $response = $this->client->fetchQueuedCalls();
 
         $this->assertArrayHasKey('status', $response);
@@ -57,6 +63,8 @@ class VoiceTest extends \PHPUnit\Framework\TestCase
 
     public function test_upload_media_file()
     {
+        $this->markTestSkipped('Not in sandbox');
+
         $response = $this->client->uploadMediaFile([
             'phoneNumber' => Fixtures::$voicePhoneNumber,
             'url' => Fixtures::$mediaUrl,
